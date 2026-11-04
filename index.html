@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Optimus Configurator</title>
+<meta name="description" content="Rank hardware and LLM combinations for RAG, summarization, batch, agentic and long-context workloads.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <div class="eyebrow">ApertusOptimus · deployment configurator</div>
+      <h1>Optimus Configurator</h1>
+      <p>Pick the workloads you need to serve. The configurator sizes every hardware and model combination against the project's SLOs and ranks the ones that fit by quality, cost and latency headroom.</p>
+    </div>
+    <div class="presets" id="presets" aria-label="Example scenarios"></div>
+  </header>
+
+  <div class="grid">
+    <form class="rail" id="form" autocomplete="off">
+      <div class="field">
+        <div class="eyebrow">Workloads</div>
+        <div id="features" style="display:flex;flex-direction:column;gap:6px"></div>
+        <div class="num" id="ctxWrap">
+          <label for="longCtx" class="muted" style="font-size:12.5px">Context window to support</label>
+          <select id="longCtx">
+            <option value="32768">32k tokens</option><option value="65536">64k tokens</option>
+            <option value="131072">128k tokens</option><option value="262144">256k tokens</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="eyebrow">Load</div>
+        <div class="row2">
+          <div class="num"><label for="peakUsers" class="muted" style="font-size:12.5px">Peak concurrent requests</label><input id="peakUsers" type="number" min="1" max="5000" step="1"></div>
+          <div class="num"><label for="reqPerDay" class="muted" style="font-size:12.5px">Requests per day</label><input id="reqPerDay" type="number" min="1" step="100"></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="eyebrow">Constraints</div>
+        <label class="check"><input type="checkbox" id="multilingual"><span>Swiss languages matter <span class="muted">(DE / FR / IT / RM)</span></span></label>
+        <div class="num"><span class="muted" style="font-size:12.5px">Model openness</span>
+          <div class="seg" role="radiogroup" aria-label="Model openness">
+            <label><input type="radio" name="openness" value="any" id="op-any">Any open weights</label>
+            <label><input type="radio" name="openness" value="prefer" id="op-prefer">Prefer fully open</label>
+            <label><input type="radio" name="openness" value="require" id="op-require">Fully open only</label>
+          </div></div>
+        <div class="num"><span class="muted" style="font-size:12.5px">Hosting</span>
+          <div class="seg" role="radiogroup" aria-label="Hosting">
+            <label><input type="radio" name="hosting" value="any" id="ho-any">Any</label>
+            <label><input type="radio" name="hosting" value="own" id="ho-own">Own hardware</label>
+            <label><input type="radio" name="hosting" value="rent" id="ho-rent">Rented GPUs</label>
+          </div></div>
+      </div>
+
+      <div class="field">
+        <div class="eyebrow">Priority</div>
+        <input type="range" id="priority" min="0" max="100" step="5" aria-label="Priority between lowest cost and best quality">
+        <div class="rangeLbl"><span>Lowest cost</span><span>Best quality</span></div>
+      </div>
+    </form>
+
+    <main id="out" style="min-width:0"></main>
+  </div>
+</div>
+
+<script src="js/engine.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "name": "optimus-configurator",
+  "version": "1.0.0",
+  "description": "Rank hardware and LLM combinations for RAG, summarization, batch, agentic and long-context workloads.",
+  "private": true,
+  "scripts": {
+    "test": "node --test test/engine.test.js",
+    "start": "python3 -m http.server 8080"
+  },
+  "engines": { "node": ">=18" }
+}
